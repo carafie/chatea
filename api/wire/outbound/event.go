@@ -28,15 +28,17 @@ type Type string
 const TypeMessage Type = "message"
 
 type Message struct {
-	GuestName string    `json:"guest_name"`
-	Message   string    `json:"message"`
-	CreatedAt time.Time `json:"created_at"`
+	GuestName  string    `json:"guest_name"`
+	GuestColor string    `json:"guest_color"`
+	Message    string    `json:"message"`
+	CreatedAt  time.Time `json:"created_at"`
 }
 
-func NewMessage(guestName, message string) Message {
+func NewMessage(guestName, guestColor, message string) Message {
 	return Message{
-		GuestName: guestName,
-		Message:   message,
-		CreatedAt: time.Now().UTC(),
+		GuestName:  guestName,
+		GuestColor: guestColor,
+		Message:    message,
+		CreatedAt:  time.Now().UTC(),
 	}
 }

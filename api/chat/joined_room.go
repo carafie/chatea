@@ -41,7 +41,7 @@ func (r *JoinedRoom) sendMessage(inEvent inbound.Event) error {
 	if err != nil {
 		return ErrEventInvalid
 	}
-	guest, err := NewGuest(inMessage.GuestName)
+	guest, err := NewGuest(inMessage.GuestName, inMessage.GuestColor)
 	if err != nil {
 		return err
 	}
@@ -52,7 +52,7 @@ func (r *JoinedRoom) sendMessage(inEvent inbound.Event) error {
 
 	outEvent := outbound.NewEvent(
 		outbound.TypeMessage,
-		outbound.NewMessage(guest.Name, message),
+		outbound.NewMessage(guest.Name, guest.Color, message),
 	)
 	rawOutEvent, err := outEvent.Format()
 	if err != nil {

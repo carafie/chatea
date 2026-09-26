@@ -23,8 +23,9 @@ type Type string
 const TypeMessage Type = "message"
 
 type Message struct {
-	GuestName string `json:"guest_name"`
-	Message   string `json:"message"`
+	GuestName  string `json:"guest_name"`
+	GuestColor string `json:"guest_color"`
+	Message    string `json:"message"`
 }
 
 func ParseMessage(rawMessage []byte) (Message, error) {

@@ -18,13 +18,31 @@ var guestNameParser = text.Parser{
 }
 
 type Guest struct {
-	Name string
+	Name  string
+	Color string
 }
 
-func NewGuest(name string) (Guest, error) {
+func NewGuest(name, color string) (Guest, error) {
 	name, err := guestNameParser.Parse(name)
 	if err != nil {
 		return Guest{}, ErrGuestNameInvalid
 	}
-	return Guest{Name: name}, nil
+
+	switch color {
+	case ColorRed, ColorOrange, ColorGreen, ColorTeal, ColorBlue, ColorPurple, ColorPink:
+	default:
+		color = ColorRed
+	}
+
+	return Guest{Name: name, Color: color}, nil
 }
+
+const (
+	ColorRed    = "red"
+	ColorOrange = "orange"
+	ColorGreen  = "green"
+	ColorTeal   = "teal"
+	ColorBlue   = "blue"
+	ColorPurple = "purple"
+	ColorPink   = "pink"
+)
