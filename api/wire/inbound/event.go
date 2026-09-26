@@ -1,21 +1,28 @@
 package inbound
 
 import (
-	"encoding/json"
 	"encoding/json/jsontext"
+	"encoding/json/v2"
+
+	"github.com/carafie/chatea/api/expected"
 )
 
-type RawEvent = []byte
+var (
+	ErrEventInvalid   = expected.New("INBOUND_EVENT_INVALID", "inbound event is invalid")
+	ErrMessageInvalid = expected.New("INBOUND_MESSAGE_INVALID", "inbound message is invalid")
+)
 
 type Event struct {
 	Type Type           `json:"type"`
 	Data jsontext.Value `json:"data"`
 }
 
-func ParseEvent(rawEvent RawEvent) (Event, error) {
+func NewEvent(rawEvent []byte) (Event, error) {
 	var event Event
-	err := json.Unmarshal(rawEvent, &event)
-	return event, err
+	if err := json.Unmarshal(rawEvent, &event); err != nil {
+		return Event{}, ErrEventInvalid
+	}
+	return event, nil
 }
 
 type Type string
@@ -28,8 +35,10 @@ type Message struct {
 	Message    string `json:"message"`
 }
 
-func ParseMessage(rawMessage []byte) (Message, error) {
+func NewMessage(rawMessage []byte) (Message, error) {
 	var message Message
-	err := json.Unmarshal(rawMessage, &message)
-	return message, err
+	if err := json.Unmarshal(rawMessage, &message); err != nil {
+		return Message{}, ErrMessageInvalid
+	}
+	return message, nil
 }
