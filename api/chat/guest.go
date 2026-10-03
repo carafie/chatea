@@ -3,14 +3,14 @@ package chat
 import (
 	"unicode"
 
-	"github.com/carafie/chatea/api/expected"
+	"github.com/carafie/chatea/api/errorsx"
 	"github.com/carafie/chatea/api/text"
 )
 
 var (
-	ErrGuestNameTooShort = expected.New("GUEST_NAME_TOO_SHORT", "guest name is too short")
-	ErrGuestNameTooLong  = expected.New("GUEST_NAME_TOO_LONG", "guest name is too long")
-	ErrGuestNameInvalid  = expected.New("GUEST_NAME_INVALID", "guest name is invalid")
+	ErrGuestNameTooShort = errorsx.New("GUEST_NAME_TOO_SHORT", "guest name is too short")
+	ErrGuestNameTooLong  = errorsx.New("GUEST_NAME_TOO_LONG", "guest name is too long")
+	ErrGuestNameInvalid  = errorsx.New("GUEST_NAME_INVALID", "guest name is invalid")
 )
 
 var guestNameParser = text.Parser{

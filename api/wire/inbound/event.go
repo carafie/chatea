@@ -4,12 +4,12 @@ import (
 	"encoding/json/jsontext"
 	"encoding/json/v2"
 
-	"github.com/carafie/chatea/api/expected"
+	"github.com/carafie/chatea/api/errorsx"
 )
 
 var (
-	ErrEventInvalid   = expected.New("INBOUND_EVENT_INVALID", "inbound event is invalid")
-	ErrMessageInvalid = expected.New("INBOUND_MESSAGE_INVALID", "inbound message is invalid")
+	ErrEventInvalid   = errorsx.New("INBOUND_EVENT_INVALID", "inbound event is invalid")
+	ErrMessageInvalid = errorsx.New("INBOUND_MESSAGE_INVALID", "inbound message is invalid")
 )
 
 type Event struct {

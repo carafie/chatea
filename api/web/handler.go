@@ -2,11 +2,10 @@ package web
 
 import (
 	"context"
-	"errors"
 	"net/http"
 	"time"
 
-	"github.com/carafie/chatea/api/expected"
+	"github.com/carafie/chatea/api/errorsx"
 	"github.com/carafie/chatea/api/service"
 	"github.com/coder/websocket"
 )
@@ -38,7 +37,7 @@ func (h *Handler) Connect(w http.ResponseWriter, r *http.Request) {
 	})
 	if err != nil {
 		resp := response{statusCode: http.StatusInternalServerError}
-		if err, ok := errors.AsType[expected.Error](err); ok {
+		if err, ok := errorsx.From(err); ok {
 			resp.statusCode = http.StatusBadRequest
 			resp.body = errorBody{Code: err.Code}
 		}

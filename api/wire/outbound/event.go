@@ -4,10 +4,10 @@ import (
 	"encoding/json/v2"
 	"time"
 
-	"github.com/carafie/chatea/api/expected"
+	"github.com/carafie/chatea/api/errorsx"
 )
 
-var ErrEventInvalid = expected.New("OUTBOUND_EVENT_INVALID", "outbound event is invalid")
+var ErrEventInvalid = errorsx.New("OUTBOUND_EVENT_INVALID", "outbound event is invalid")
 
 type Event struct {
 	Type Type `json:"type"`

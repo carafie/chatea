@@ -1,4 +1,8 @@
-package expected
+package errorsx
+
+import (
+	"errors"
+)
 
 type Error struct {
 	Code    string
@@ -10,6 +14,13 @@ func New(code, message string) Error {
 		Code:    code,
 		Message: message,
 	}
+}
+
+func From(err error) (Error, bool) {
+	if err, ok := errors.AsType[Error](err); ok {
+		return err, true
+	}
+	return Error{}, false
 }
 
 func (e Error) Error() string {

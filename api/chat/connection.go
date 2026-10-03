@@ -2,15 +2,14 @@ package chat
 
 import (
 	"context"
-	"errors"
 
-	"github.com/carafie/chatea/api/expected"
+	"github.com/carafie/chatea/api/errorsx"
 	"github.com/carafie/chatea/api/pubsub"
 	"github.com/carafie/chatea/api/wire/inbound"
 	"github.com/carafie/chatea/api/wire/outbound"
 )
 
-var ErrConnInternal = expected.New("INTERNAL_ERROR", "connection internal error")
+var ErrConnInternal = errorsx.New("INTERNAL_ERROR", "connection internal error")
 
 type ConnReader func(ctx context.Context) ([]byte, error)
 
@@ -98,7 +97,7 @@ func (c *Conn) handleMessage(inEvent inbound.Event) error {
 
 func (c *Conn) handleError(ctx context.Context, err error, w ConnWriter) {
 	code := ErrConnInternal.Code
-	if err, ok := errors.AsType[expected.Error](err); ok {
+	if err, ok := errorsx.From(err); ok {
 		code = err.Code
 	}
 
